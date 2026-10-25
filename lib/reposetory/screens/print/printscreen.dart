@@ -9,6 +9,14 @@ class Printscreen extends StatefulWidget {
 }
 
 class _PrintscreenState extends State<Printscreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,7 +73,7 @@ class _PrintscreenState extends State<Printscreen> {
             Positioned(
               bottom:20,
               left: 20,
-              child:  UiHelper.customTextField(controller: TextEditingController(), text: 'Search Icescream'),
+              child:  UiHelper.customTextField(controller: _searchController, text: 'Search Icescream'),
             )
             
             ]   
