@@ -9,6 +9,8 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  final TextEditingController _searchController = TextEditingController();
+
   final List<Map<String, String>> data = [
     {
       "image": "image 50.png",
@@ -65,6 +67,12 @@ class _HomescreenState extends State<Homescreen> {
       "text": "Snacks &\nBranded Foods",
     },
   ];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +159,7 @@ class _HomescreenState extends State<Homescreen> {
                 bottom: 20,
                 left: 20,
                 child: UiHelper.customTextField(
-                  controller: TextEditingController(),
+                  controller: _searchController,
                   text: "Search Icecream",
                 ),
               ),
