@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:blinkit_clone/domain/constants/cart_store.dart';
 import 'package:blinkit_clone/reposetory/widgets/uihelper.dart';
 
 class Homescreen extends StatefulWidget {
@@ -306,24 +307,34 @@ class _HomescreenState extends State<Homescreen> {
                               const SizedBox(height: 8),
 
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      UiHelper.customImage(
-                                          img: "rupee.png"),
+                                      UiHelper.customImage(img: "rupee.png"),
                                       UiHelper.customText(
                                         text: "79",
                                         color: Colors.black,
                                         fontSize: 18,
-                                        fontWeight:
-                                            FontWeight.bold,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ],
                                   ),
-
-                                  
+                                  UiHelper.customButton(() {
+                                    final productName = category[index]["Text"]!
+                                        .replaceAll("\n", " ");
+                                    CartStore.instance.addProduct(
+                                      name: productName,
+                                      image: category[index]["image"]!,
+                                      price: 79,
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("$productName added to cart"),
+                                        duration: const Duration(seconds: 1),
+                                      ),
+                                    );
+                                  }),
                                 ],
                               ),
                             ],
