@@ -149,7 +149,15 @@ class _PrintscreenState extends State<Printscreen> {
                             ),
                             
                           ),
-                          onPressed: (){},
+                          onPressed: () {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              const SnackBar(
+                                content: Text(
+                                  'File upload is not connected yet. This screen is currently a UI demo.',
+                                ),
+                              ),
+                            );
+                          },
                           child: UiHelper.customText(text: "Upload Files", color: Colors.white, fontWeight: FontWeight.w700, fontSize: 13,fontFamily: 'bold')
                         ),
                   
