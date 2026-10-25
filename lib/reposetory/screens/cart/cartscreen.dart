@@ -3,15 +3,19 @@ import'package:flutter/material.dart';
 
 class Cartscreen extends StatefulWidget {
   const Cartscreen({super.key});
-  controller(){
-    TextEditingController searchController = TextEditingController();
-  }
-
   @override
   State<Cartscreen> createState() => _CartscreenState();
 }
 
 class _CartscreenState extends State<Cartscreen> {
+  final TextEditingController _searchController = TextEditingController();
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,7 +74,7 @@ class _CartscreenState extends State<Cartscreen> {
           Positioned(
             bottom:20,
             left: 20,
-            child:  UiHelper.customTextField(controller: TextEditingController(), text: 'Search Icescream'),
+            child:  UiHelper.customTextField(controller: _searchController, text: 'Search Icescream'),
           )
           
           ]   
