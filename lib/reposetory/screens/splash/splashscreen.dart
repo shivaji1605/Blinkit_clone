@@ -12,31 +12,33 @@ class SplashScreen extends StatefulWidget {
 }
 
 class _SplashScreenState extends State<SplashScreen> {
+  Timer? _navigationTimer;
+
   @override
-  
-  initState() {
+  void initState() {
     super.initState();
-    Timer(Duration(seconds: 3), () {
-      Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => LoginScreen()));
+    _navigationTimer = Timer(const Duration(seconds: 3), () {
+      if (!mounted) return;
+      Navigator.pushReplacement(
+        context,
+        MaterialPageRoute(builder: (_) => const LoginScreen()),
+      );
     });
   }
+
+  @override
+  void dispose() {
+    _navigationTimer?.cancel();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: AppColors.scaffholdbackground,
       body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Center(
-              child: Image.asset('assets/image/image 1.png'),
-
-            ),
-          ],
-            
-          ),
+        child: Image.asset('assets/image/image 1.png'),
       ),
-      
     );
   }
 }

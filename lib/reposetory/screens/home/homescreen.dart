@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:blinkit_clone/domain/constants/cart_store.dart';
 import 'package:blinkit_clone/reposetory/widgets/uihelper.dart';
 
 class Homescreen extends StatefulWidget {
@@ -9,6 +10,8 @@ class Homescreen extends StatefulWidget {
 }
 
 class _HomescreenState extends State<Homescreen> {
+  final TextEditingController _searchController = TextEditingController();
+
   final List<Map<String, String>> data = [
     {
       "image": "image 50.png",
@@ -65,6 +68,12 @@ class _HomescreenState extends State<Homescreen> {
       "text": "Snacks &\nBranded Foods",
     },
   ];
+
+  @override
+  void dispose() {
+    _searchController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -151,7 +160,7 @@ class _HomescreenState extends State<Homescreen> {
                 bottom: 20,
                 left: 20,
                 child: UiHelper.customTextField(
-                  controller: TextEditingController(),
+                  controller: _searchController,
                   text: "Search Icecream",
                 ),
               ),
@@ -298,24 +307,34 @@ class _HomescreenState extends State<Homescreen> {
                               const SizedBox(height: 8),
 
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Row(
                                     children: [
-                                      UiHelper.customImage(
-                                          img: "rupee.png"),
+                                      UiHelper.customImage(img: "rupee.png"),
                                       UiHelper.customText(
                                         text: "79",
                                         color: Colors.black,
                                         fontSize: 18,
-                                        fontWeight:
-                                            FontWeight.bold,
+                                        fontWeight: FontWeight.bold,
                                       ),
                                     ],
                                   ),
-
-                                  
+                                  UiHelper.customButton(() {
+                                    final productName = category[index]["Text"]!
+                                        .replaceAll("\n", " ");
+                                    CartStore.instance.addProduct(
+                                      name: productName,
+                                      image: category[index]["image"]!,
+                                      price: 79,
+                                    );
+                                    ScaffoldMessenger.of(context).showSnackBar(
+                                      SnackBar(
+                                        content: Text("$productName added to cart"),
+                                        duration: const Duration(seconds: 1),
+                                      ),
+                                    );
+                                  }),
                                 ],
                               ),
                             ],
